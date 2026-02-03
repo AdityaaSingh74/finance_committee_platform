@@ -112,18 +112,43 @@ class ChartFactory {
      * Create bar chart
      */
     static createBarChart(ctx, data, options = {}) {
+        // Create gradients for bar chart
+        const gradient1 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient1.addColorStop(0, 'rgba(27, 47, 74, 0.9)');
+        gradient1.addColorStop(1, 'rgba(27, 47, 74, 0.6)');
+
+        const gradient2 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient2.addColorStop(0, 'rgba(17, 197, 217, 0.9)');
+        gradient2.addColorStop(1, 'rgba(17, 197, 217, 0.6)');
+
+        const gradient3 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient3.addColorStop(0, 'rgba(245, 193, 108, 0.9)');
+        gradient3.addColorStop(1, 'rgba(245, 193, 108, 0.6)');
+
+        const gradient4 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient4.addColorStop(0, 'rgba(33, 230, 162, 0.9)');
+        gradient4.addColorStop(1, 'rgba(33, 230, 162, 0.6)');
+
+        const gradient5 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient5.addColorStop(0, 'rgba(233, 75, 75, 0.9)');
+        gradient5.addColorStop(1, 'rgba(233, 75, 75, 0.6)');
+
+        const gradient6 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient6.addColorStop(0, 'rgba(114, 137, 218, 0.9)');
+        gradient6.addColorStop(1, 'rgba(114, 137, 218, 0.6)');
+
         const defaultData = {
             labels: data.labels || [],
             datasets: [{
                 label: data.datasetLabel || 'Value',
                 data: data.values || [],
                 backgroundColor: [
-                    'rgba(27, 47, 74, 0.8)',
-                    'rgba(17, 197, 217, 0.8)',
-                    'rgba(245, 193, 108, 0.8)',
-                    'rgba(33, 230, 162, 0.8)',
-                    'rgba(233, 75, 75, 0.8)',
-                    'rgba(114, 137, 218, 0.8)'
+                    gradient1,
+                    gradient2,
+                    gradient3,
+                    gradient4,
+                    gradient5,
+                    gradient6
                 ],
                 borderColor: [
                     'rgba(27, 47, 74, 1)',
@@ -136,6 +161,14 @@ class ChartFactory {
                 borderWidth: 1,
                 borderRadius: 8,
                 borderSkipped: false,
+                hoverBackgroundColor: [
+                    'rgba(27, 47, 74, 1)',
+                    'rgba(17, 197, 217, 1)',
+                    'rgba(245, 193, 108, 1)',
+                    'rgba(33, 230, 162, 1)',
+                    'rgba(233, 75, 75, 1)',
+                    'rgba(114, 137, 218, 1)'
+                ]
             }]
         };
 
@@ -155,13 +188,19 @@ class ChartFactory {
      * Create line chart
      */
     static createLineChart(ctx, data, options = {}) {
+        // Create gradient for line chart
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(17, 197, 217, 0.6)');
+        gradient.addColorStop(0.5, 'rgba(17, 197, 217, 0.3)');
+        gradient.addColorStop(1, 'rgba(17, 197, 217, 0.01)');
+
         const defaultData = {
             labels: data.labels || [],
             datasets: [{
                 label: data.datasetLabel || 'Value',
                 data: data.values || [],
                 borderColor: 'rgba(17, 197, 217, 1)',
-                backgroundColor: 'rgba(17, 197, 217, 0.1)',
+                backgroundColor: gradient,
                 borderWidth: 3,
                 fill: true,
                 tension: 0.4,
@@ -169,7 +208,10 @@ class ChartFactory {
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointRadius: 6,
-                pointHoverRadius: 8
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: 'rgba(17, 197, 217, 1)',
+                pointHoverBorderColor: '#fff',
+                pointHoverBorderWidth: 3
             }]
         };
 

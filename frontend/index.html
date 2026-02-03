@@ -10,18 +10,8 @@
 </head>
 <body>
 
-<!-- Floating Particles Background -->
-<div class="particles-bg">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-</div>
+<!-- Enhanced Interactive Particles Background -->
+<div class="particles-bg" id="particlesContainer"></div>
 
 <!-- Navbar -->
 <nav class="navbar">
@@ -40,6 +30,7 @@
 
 <!-- Hero Section -->
 <section class="hero page-enter">
+    <div class="hero-3d-coin">₹</div>
     <h1>Powering the Financial Engine of Our Campus</h1>
     <p>
         We manage sponsors, optimize budgets, and deliver measurable ROI
@@ -145,7 +136,12 @@
         // Small delay for visual effect
         setTimeout(loadDashboardStats, 500);
     });
-</script>
-
+    </script>
+    
+    <!-- Enhanced Particle System -->
+    <script type="module" src="js/particles.js"></script>
+    
+    <!-- Page Transitions -->
+    <script type="module" src="js/transitions.js"></script>
 </body>
 </html>

@@ -108,7 +108,7 @@
     </div>
 
     <!-- User Modal -->
-    <div id="userModal" class="modal" style="display: none;">
+    <div id="userModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="userModalTitle">Add User</h3>
@@ -440,12 +440,15 @@
                     delete form.dataset.userId;
                 }
                 
-                modal.style.display = 'block';
+                modal.classList.add('show');
             }
 
             closeUserModal() {
                 const modal = document.getElementById('userModal');
-                modal.style.display = 'none';
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
                 this.clearUserMessages();
             }
 
@@ -564,5 +567,8 @@
             event.preventDefault();
         });
     </script>
+    
+    <!-- Page Transitions -->
+    <script type="module" src="js/transitions.js"></script>
 </body>
 </html>

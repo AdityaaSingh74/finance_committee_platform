@@ -51,7 +51,7 @@
     </div>
 
     <!-- Event Form Modal -->
-    <div id="eventModal" class="modal" style="display: none;">
+    <div id="eventModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="modalTitle">Add Event</h3>
@@ -478,12 +478,17 @@
 
             openModal(title) {
                 document.getElementById('modalTitle').textContent = title;
-                document.getElementById('eventModal').style.display = 'block';
+                const modal = document.getElementById('eventModal');
+                modal.classList.add('show');
                 document.body.style.overflow = 'hidden';
             }
 
             closeModal() {
-                document.getElementById('eventModal').style.display = 'none';
+                const modal = document.getElementById('eventModal');
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
                 document.body.style.overflow = 'auto';
                 document.getElementById('eventForm').reset();
                 
@@ -547,5 +552,8 @@
             }
         });
     </script>
+    
+    <!-- Page Transitions -->
+    <script type="module" src="js/transitions.js"></script>
 </body>
 </html>

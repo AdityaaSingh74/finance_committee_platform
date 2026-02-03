@@ -333,12 +333,15 @@ class SponsorsManager {
             delete form.dataset.sponsorId;
         }
         
-        modal.style.display = 'block';
+        modal.classList.add('show');
     }
 
     closeModal() {
         const modal = document.getElementById('sponsorModal');
-        modal.style.display = 'none';
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
         this.clearMessages();
     }
 
