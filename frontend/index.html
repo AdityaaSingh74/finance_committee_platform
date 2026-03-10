@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<!-- Demo Mode Banner -->
+<div class="demo-mode-banner">
+    🎯 PRESENTATION MODE - Demo Data Loaded
+</div>
+
 <!-- Enhanced Interactive Particles Background -->
 <div class="particles-bg" id="particlesContainer"></div>
 
@@ -96,29 +101,42 @@
         }, 16);
     }
 
-    // Load dashboard stats
+    // Load dashboard stats with demo data for presentation
     async function loadDashboardStats() {
         try {
             const analyticsData = await apiMethods.analytics.getDashboard();
             
-            if (analyticsData && analyticsData.financial) {
-                // Animate total sponsorships
+            // Use comprehensive demo data if API fails
+            const demoData = {
+                financial: {
+                    total_sponsor_investment: 6800000,
+                    total_revenue: 1850000
+                },
+                events: {
+                    total_events: 12
+                }
+            };
+            
+            const data = analyticsData || demoData;
+            
+            if (data && data.financial) {
+                // Animate total sponsorships with demo data
                 const totalSponsorshipsElement = document.getElementById('total-sponsorships');
-                if (totalSponsorshipsElement && analyticsData.financial.total_sponsor_investment) {
-                    animateNumber(totalSponsorshipsElement, analyticsData.financial.total_sponsor_investment, true);
+                if (totalSponsorshipsElement && data.financial.total_sponsor_investment) {
+                    animateNumber(totalSponsorshipsElement, data.financial.total_sponsor_investment, true);
                 }
 
-                // Animate events funded
+                // Animate events funded with demo data
                 const eventsFundedElement = document.getElementById('events-funded');
-                if (eventsFundedElement && analyticsData.events?.total_events) {
-                    animateNumber(eventsFundedElement, analyticsData.events.total_events);
+                if (eventsFundedElement && data.events?.total_events) {
+                    animateNumber(eventsFundedElement, data.events.total_events);
                 }
 
-                // Animate students reached (estimated based on engagement)
+                // Animate students reached with demo data
                 const studentsReachedElement = document.getElementById('students-reached');
                 if (studentsReachedElement) {
-                    // Estimate: each event reaches ~1000-1500 students
-                    const estimatedReach = (analyticsData.events?.total_events || 0) * 1250;
+                    // Demo: each event reaches ~1500 students on average
+                    const estimatedReach = (data.events?.total_events || 12) * 1500;
                     animateNumber(studentsReachedElement, estimatedReach);
                 }
             }
@@ -143,5 +161,8 @@
     
     <!-- Page Transitions -->
     <script type="module" src="js/transitions.js"></script>
+    
+    <!-- Demo Showcase -->
+    <script type="module" src="js/demo-showcase.js"></script>
 </body>
 </html>

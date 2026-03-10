@@ -1039,10 +1039,35 @@ body {
 
 .activity-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    gap: 12px;
+    padding: 12px;
     border-bottom: 1px solid var(--border);
+    transition: background-color var(--transition-base);
+}
+
+.activity-item:hover {
+    background-color: var(--hover);
+}
+
+.activity-event {
+    border-left: 3px solid var(--teal);
+}
+
+.activity-sponsor {
+    border-left: 3px solid var(--gold);
+}
+
+.activity-auth {
+    border-left: 3px solid var(--success);
+}
+
+.activity-finance {
+    border-left: 3px solid var(--warning);
+}
+
+.activity-system {
+    border-left: 3px solid var(--muted);
 }
 
 .activity-item:last-child {
@@ -1528,6 +1553,89 @@ body.page-exit {
     }
 }
 
+/* ===== DEMO MODE INDICATOR ===== */
+.demo-mode-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, var(--gradient-cosmic), var(--gradient-aurora));
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10001;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--neon-cyan);
+    box-shadow: 0 4px 20px rgba(0, 247, 255, 0.3);
+    animation: demo-pulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes demo-pulse {
+    0%, 100% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+/* Add space for demo banner */
+body {
+    padding-top: 45px;
+}
+
+/* Ensure demo banner is above all other elements */
+.navbar {
+    z-index: 10000;
+}
+
+.demo-mode-banner {
+    z-index: 10001;
+}
+
+/* Hide demo banner on print */
+@media print {
+    .demo-mode-banner {
+        display: none;
+    }
+    body {
+        padding-top: 0;
+    }
+}
+
+/* ===== DEMO HIGHLIGHT EFFECTS ===== */
+.demo-highlight {
+    animation: demo-highlight 2s ease-in-out;
+    box-shadow: 
+        0 0 40px rgba(17, 197, 217, 0.6),
+        0 0 80px rgba(17, 197, 217, 0.3),
+        inset 0 0 20px rgba(17, 197, 217, 0.1) !important;
+    transform: scale(1.05) !important;
+    z-index: 1000;
+}
+
+@keyframes demo-highlight {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 20px rgba(17, 197, 217, 0.3),
+            0 0 40px rgba(17, 197, 217, 0.1);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 
+            0 0 40px rgba(17, 197, 217, 0.6),
+            0 0 80px rgba(17, 197, 217, 0.3),
+            inset 0 0 20px rgba(17, 197, 217, 0.1);
+    }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     body {
@@ -1545,6 +1653,14 @@ body.page-exit {
     .event-card::before, .sponsor-card::before {
         animation: none;
         transition: none;
+    }
+    
+    .demo-mode-banner {
+        animation: none;
+    }
+    
+    .demo-highlight {
+        animation: none;
     }
 }
 

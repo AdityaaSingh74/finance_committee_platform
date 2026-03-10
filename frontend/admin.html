@@ -12,6 +12,11 @@
 </head>
 <body>
 
+<!-- Demo Mode Banner -->
+<div class="demo-mode-banner">
+    🎯 PRESENTATION MODE - Admin Control Center
+</div>
+ 
 <!-- Floating Particles Background -->
 <div class="particles-bg">
     <div class="particle"></div>
@@ -237,41 +242,156 @@
                     this.renderUsers();
                 } catch (error) {
                     console.error('Failed to load users:', error);
-                    throw error;
+                    
+                    // Load comprehensive demo data for presentation
+                    this.users = this.getDemoUsers();
+                    this.renderUsers();
+                    console.log('Loaded demo users data:', this.users.length, 'users');
                 }
+            }
+            
+            getDemoUsers() {
+                return [
+                    {
+                        id: 1,
+                        name: 'Rajesh Kumar',
+                        email: 'rajesh.kumar@example.com',
+                        role: 'admin',
+                        created_at: '2024-01-15T10:30:00Z',
+                        last_login: '2025-01-01T09:15:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 2,
+                        name: 'Priya Sharma',
+                        email: 'priya.sharma@example.com',
+                        role: 'committee_member',
+                        created_at: '2024-02-20T14:15:00Z',
+                        last_login: '2024-12-31T16:45:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 3,
+                        name: 'Amit Patel',
+                        email: 'amit.patel@example.com',
+                        role: 'committee_member',
+                        created_at: '2024-03-10T09:45:00Z',
+                        last_login: '2024-12-30T11:20:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 4,
+                        name: 'Sneha Reddy',
+                        email: 'sneha.reddy@example.com',
+                        role: 'sponsor_liaison',
+                        created_at: '2024-04-05T16:20:00Z',
+                        last_login: '2024-12-29T14:30:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 5,
+                        name: 'Vikram Singh',
+                        email: 'vikram.singh@example.com',
+                        role: 'event_coordinator',
+                        created_at: '2024-05-12T11:30:00Z',
+                        last_login: '2024-12-28T13:10:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 6,
+                        name: 'Anjali Nair',
+                        email: 'anjali.nair@example.com',
+                        role: 'sponsor_liaison',
+                        created_at: '2024-06-18T13:45:00Z',
+                        last_login: '2024-12-27T17:25:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 7,
+                        name: 'Rohan Gupta',
+                        email: 'rohan.gupta@example.com',
+                        role: 'committee_member',
+                        created_at: '2024-07-22T15:10:00Z',
+                        last_login: '2024-12-26T12:40:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 8,
+                        name: 'Kavita Joshi',
+                        email: 'kavita.joshi@example.com',
+                        role: 'finance_analyst',
+                        created_at: '2024-08-08T12:25:00Z',
+                        last_login: '2024-12-25T10:15:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 9,
+                        name: 'Arjun Mehta',
+                        email: 'arjun.mehta@example.com',
+                        role: 'event_coordinator',
+                        created_at: '2024-09-14T10:15:00Z',
+                        last_login: '2024-12-24T15:50:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 10,
+                        name: 'Nisha Verma',
+                        email: 'nisha.verma@example.com',
+                        role: 'finance_analyst',
+                        created_at: '2024-10-30T17:40:00Z',
+                        last_login: '2024-12-23T09:30:00Z',
+                        status: 'active'
+                    },
+                    {
+                        id: 11,
+                        name: 'Madhav Rao',
+                        email: 'madhav.rao@example.com',
+                        role: 'sponsor_liaison',
+                        created_at: '2024-11-11T14:55:00Z',
+                        last_login: '2024-12-22T16:20:00Z',
+                        status: 'inactive'
+                    },
+                    {
+                        id: 12,
+                        name: 'Tanvi Deshmukh',
+                        email: 'tanvi.deshmukh@example.com',
+                        role: 'committee_member',
+                        created_at: '2024-12-05T09:30:00Z',
+                        last_login: '2024-12-21T11:45:00Z',
+                        status: 'active'
+                    }
+                ];
             }
 
             async loadStatistics() {
                 try {
-                    // Mock statistics - in real implementation, get from analytics endpoint
-                    this.stats = {
-                        totalUsers: this.users.length,
-                        totalSponsors: await this.getSponsorCount(),
-                        totalEvents: await this.getEventCount(),
-                        activeSessions: Math.floor(Math.random() * 20) + 5
-                    };
+                // Load comprehensive demo statistics for presentation
+                this.stats = {
+                    totalUsers: this.getDemoUsers().length,
+                    totalSponsors: 12,
+                    totalEvents: 12,
+                    activeSessions: 8,
+                    systemHealth: 85,
+                    totalRevenue: 1850000,
+                    totalProfit: 600000,
+                    totalBudget: 1250000
+                };
                     this.renderStatistics();
                 } catch (error) {
                     console.error('Failed to load statistics:', error);
+                    throw error;
                 }
+            }
             }
 
             async getSponsorCount() {
-                try {
-                    const sponsors = await apiMethods.sponsors.getAll();
-                    return sponsors.length || 0;
-                } catch (error) {
-                    return 0;
-                }
+                // Return demo data count for consistent presentation
+                return 12;
             }
 
             async getEventCount() {
-                try {
-                    const events = await apiMethods.events.getAll();
-                    return events.length || 0;
-                } catch (error) {
-                    return 0;
-                }
+                // Return demo data count for consistent presentation
+                return 12;
             }
 
             renderUsers() {
@@ -327,23 +447,37 @@
             }
 
             loadActivityLog() {
-                // Mock activity log - in real implementation, get from backend
-                const mockActivities = [
-                    { action: 'User Login', user: 'John Doe', time: '2 minutes ago' },
-                    { action: 'New Sponsor Added', user: 'Admin', time: '15 minutes ago' },
-                    { action: 'Event Updated', user: 'Jane Smith', time: '1 hour ago' },
-                    { action: 'User Registration', user: 'New User', time: '2 hours ago' }
+                // Comprehensive demo activity log for presentation
+                const demoActivities = [
+                    { action: 'TechFest 2024 Completed', user: 'Priya Sharma', time: '2 hours ago', type: 'event' },
+                    { action: 'New Sponsor Added: InvestFirst Capital', user: 'Rajesh Kumar', time: '3 hours ago', type: 'sponsor' },
+                    { action: 'Dashboard Statistics Generated', user: 'Kavita Joshi', time: '4 hours ago', type: 'system' },
+                    { action: 'User Login: Vikram Singh', user: 'System', time: '5 hours ago', type: 'auth' },
+                    { action: 'Event Created: Innovation Expo 2025', user: 'Sneha Reddy', time: '6 hours ago', type: 'event' },
+                    { action: 'Sponsor Updated: CloudNet Systems', user: 'Anjali Nair', time: '8 hours ago', type: 'sponsor' },
+                    { action: 'Payment Processed: ₹85,000', user: 'System', time: '12 hours ago', type: 'finance' },
+                    { action: 'User Registration: Tanvi Deshmukh', user: 'System', time: '1 day ago', type: 'auth' },
+                    { action: 'Music Festival Budget Approved', user: 'Rohan Gupta', time: '1 day ago', type: 'event' },
+                    { action: 'Monthly Report Generated', user: 'Arjun Mehta', time: '2 days ago', type: 'system' },
+                    { action: 'Startup Pitch Day Completed', user: 'Nisha Verma', time: '2 days ago', type: 'event' },
+                    { action: 'New User Added: Madhav Rao', user: 'Rajesh Kumar', time: '3 days ago', type: 'auth' },
+                    { action: 'Revenue Target Achieved: 118%', user: 'System', time: '4 days ago', type: 'finance' },
+                    { action: 'System Backup Completed', user: 'System', time: '5 days ago', type: 'system' },
+                    { action: 'Cultural Mela Success', user: 'Amit Patel', time: '1 week ago', type: 'event' }
                 ];
 
                 const container = document.getElementById('activityLog');
                 if (container) {
-                    const activitiesHTML = mockActivities.map(activity => `
-                        <div class="activity-item">
+                    const activitiesHTML = demoActivities.map(activity => {
+                        const typeClass = activity.type ? `activity-${activity.type}` : '';
+                        return `
+                        <div class="activity-item ${typeClass}">
                             <span class="activity-action">${this.escapeHtml(activity.action)}</span>
                             <span class="activity-user">${this.escapeHtml(activity.user)}</span>
                             <span class="activity-time">${activity.time}</span>
                         </div>
-                    `).join('');
+                    `;
+                    }).join('');
                     container.innerHTML = activitiesHTML;
                 }
             }
@@ -570,5 +704,8 @@
     
     <!-- Page Transitions -->
     <script type="module" src="js/transitions.js"></script>
+    
+    <!-- Demo Showcase -->
+    <script type="module" src="js/demo-showcase.js"></script>
 </body>
 </html>
