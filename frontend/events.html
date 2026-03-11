@@ -1,695 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - Finance Committee</title>
+    <title>Our Events — Finance Committee</title>
+    <meta name="description"
+        content="Explore the Finance Committee's portfolio of events — from tech summits and cultural festivals to startup pitch days and career fairs.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- Demo Mode Banner -->
-<div class="demo-mode-banner">
-    🎯 PRESENTATION MODE - 12 Events Loaded
-</div>
+    <!-- Fluid Background Canvas -->
+    <canvas id="fluid-bg-canvas" class="fluid-canvas" aria-hidden="true"></canvas>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" id="mainNav">
         <div class="logo">
-            <img src="assets/logo.svg" alt="Finance Committee Logo" onerror="this.style.display='none'">
-            <span>Finance Committee</span>
+            <div class="logo-icon">FC</div>
+            <span class="logo-text">Finance Committee</span>
         </div>
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="sponsors.html" class="nav-link">Sponsors</a>
-            <a href="#" class="nav-link active">Events</a>
-            <a href="dashboard.html" class="nav-link">Dashboard</a>
-            <a href="admin.html" class="nav-link">Admin</a>
-            <a href="#" id="logoutBtn" class="nav-link">Logout</a>
+            <a href="events.html" class="nav-link active">Events</a>
+            <a href="packages.html" class="nav-link">Packages</a>
+            <a href="login.html" class="nav-link nav-login">Committee Login</a>
+            <a href="packages.html#contact" class="nav-cta">Partner With Us</a>
         </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="packages.html">Packages</a>
+        <a href="login.html">Committee Login</a>
+        <a href="packages.html#contact" class="mobile-cta">Partner With Us</a>
+    </div>
 
-    <!-- Events Header -->
-    <section class="sponsors-header">
-        <div class="sponsors-controls">
-            <input type="text" id="search-events" placeholder="Search events..." class="search-input">
-            <select id="date-filter" class="filter-select">
-                <option value="">All Dates</option>
-                <option value="upcoming">Upcoming</option>
-                <option value="past">Past Events</option>
-                <option value="last30">Last 30 Days</option>
-                <option value="next30">Next 30 Days</option>
-            </select>
-            <button class="btn-primary btn-icon btn-add" id="add-event-btn">Add Event</button>
-            <button class="btn-secondary btn-icon btn-refresh" id="refresh-events-btn">Refresh</button>
+    <!-- Page Hero -->
+    <section class="page-hero-events">
+        <div class="page-hero-events-inner">
+            <div class="events-hero-text">
+                <p class="section-eyebrow reveal-up">Our Track Record</p>
+                <h1 class="page-events-title reveal-up">
+                    Events that <em>move</em><br>people.
+                </h1>
+                <p class="page-events-sub reveal-up">
+                    From intimate hackathons to festivals with 5,000+ attendees — every event is a
+                    curated brand moment and a new opportunity to shine.
+                </p>
+            </div>
+            <div class="events-hero-stats reveal-right">
+                <div class="ev-hero-stat">
+                    <span class="ev-hero-num">12+</span>
+                    <span class="ev-hero-lbl">Events in 2024</span>
+                </div>
+                <div class="ev-hero-stat">
+                    <span class="ev-hero-num">18K+</span>
+                    <span class="ev-hero-lbl">Total Attendees</span>
+                </div>
+                <div class="ev-hero-stat">
+                    <span class="ev-hero-num">40+</span>
+                    <span class="ev-hero-lbl">Brand Partners</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Events List -->
-    <section class="cards-grid" id="eventList"></section>
-
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay" style="display: none;">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Event Form Modal -->
-    <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Add Event</h3>
-                <span class="close" onclick="window.eventsManager.closeModal()">&times;</span>
-            </div>
-            <form id="eventForm" class="modal-form">
-                <!-- Error/Success Messages -->
-                <div id="modal-error-container" class="error-message" style="display: none;"></div>
-                <div id="modal-success-container" class="success-message" style="display: none;"></div>
-
-                <!-- Event Name -->
-                <div class="form-group">
-                    <label for="eventName">Event Name</label>
-                    <input type="text" id="eventName" name="eventName" required placeholder="Enter event name">
-                </div>
-
-                <!-- Event Date -->
-                <div class="form-group">
-                    <label for="eventDate">Event Date</label>
-                    <input type="date" id="eventDate" name="eventDate" required>
-                </div>
-
-                <!-- Budget -->
-                <div class="form-group">
-                    <label for="eventBudget">Budget (₹)</label>
-                    <input type="number" id="eventBudget" name="eventBudget" required placeholder="0.00" step="0.01" min="0">
-                </div>
-
-                <!-- Footfall -->
-                <div class="form-group">
-                    <label for="eventFootfall">Expected Footfall</label>
-                    <input type="number" id="eventFootfall" name="eventFootfall" placeholder="0" min="0">
-                </div>
-
-                <!-- Revenue -->
-                <div class="form-group">
-                    <label for="eventRevenue">Actual Revenue (₹)</label>
-                    <input type="number" id="eventRevenue" name="eventRevenue" placeholder="0.00" step="0.01" min="0">
-                </div>
-
-                <!-- Form Actions -->
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary" onclick="window.eventsManager.closeModal()">Cancel</button>
-                    <button type="submit" class="btn-primary" id="saveEventBtn">Save Event</button>
-                </div>
-            </form>
+    <!-- Filter Bar -->
+    <section class="events-filter-section">
+        <div class="events-filter-bar">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="Technology">Tech &amp; Innovation</button>
+            <button class="filter-chip" data-filter="Cultural">Cultural</button>
+            <button class="filter-chip" data-filter="Business">Business</button>
+            <button class="filter-chip" data-filter="Sports">Sports</button>
         </div>
-    </div>
+    </section>
 
-    <script type="module">
-        import { apiMethods, apiUtils } from './js/api.js';
+    <!-- Pinterest Blended Masonry Grid -->
+    <section class="events-board" id="eventsBoard"></section>
 
-        class EventsManager {
-            constructor() {
-                this.events = [];
-                this.isLoading = false;
-                this.currentEventId = null;
-                this.init();
-            }
+    <!-- CTA Strip -->
+    <section class="cta-section reveal-up" style="margin-top: 0;">
+        <div class="cta-inner">
+            <p class="section-eyebrow">Sponsor an Event</p>
+            <h2 class="cta-heading">We're always planning<br>something <em>big.</em></h2>
+            <div class="cta-actions">
+                <a href="packages.html" class="btn-primary mag-btn">View Packages</a>
+                <a href="packages.html#contact" class="btn-text">Contact the team →</a>
+            </div>
+        </div>
+    </section>
 
-            async init() {
-                try {
-                    this.setLoading(true);
-                    await this.loadEvents();
-                    this.setupEventListeners();
-                    this.renderEvents();
-                } catch (error) {
-                    console.error('Events page initialization failed:', error);
-                    apiUtils.showError(error, 'events-error');
-                } finally {
-                    this.setLoading(false);
-                }
-            }
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand-block">
+            <span class="footer-brand-name">Finance<br>Committee.</span>
+            <p class="footer-brand-tagline">Connecting ambitious brands with<br>India's next generation of leaders.</p>
+        </div>
+        <div class="footer-body">
+            <div class="footer-col">
+                <h5 class="footer-col-head">Platform</h5>
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="packages.html">Sponsorship Packages</a>
+            </div>
+            <div class="footer-col">
+                <h5 class="footer-col-head">Enquiries</h5>
+                <a href="packages.html#contact">Partner With Us</a>
+                <a href="packages.html#contact">Custom Packages</a>
+            </div>
+            <div class="footer-col">
+                <h5 class="footer-col-head">Committee</h5>
+                <a href="login.html">Member Login</a>
+            </div>
+            <div class="footer-col footer-col-contact">
+                <h5 class="footer-col-head">Get In Touch</h5>
+                <a href="mailto:financecommittee@college.edu">financecommittee@college.edu</a>
+                <p>We respond within 24 hours.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 Finance Committee. All rights reserved.</span>
+            <div class="footer-logo-sm">
+                <div class="logo-icon-sm">FC</div>
+            </div>
+        </div>
+    </footer>
 
-            async loadEvents() {
-                try {
-                    this.events = await apiMethods.events.getAll();
-                    
-                    if (!this.events || !Array.isArray(this.events)) {
-                        throw new Error('Invalid events data received');
-                    }
-                } catch (error) {
-                    console.error('Failed to load events:', error);
-                    
-                    // Load comprehensive demo data for presentation
-                    this.events = this.getDemoEvents();
-                    console.log('Loaded demo events data:', this.events.length, 'events');
-                }
-            }
-            
-            getDemoEvents() {
-                return [
-                    {
-                        id: 'ev1',
-                        name: 'TechFest 2024',
-                        date: '2024-03-15T00:00:00Z',
-                        budget: 50000,
-                        revenue: 75000,
-                        description: 'Annual technology showcase featuring innovative projects from students across various departments.',
-                        status: 'completed',
-                        expected_attendees: 2500
-                    },
-                    {
-                        id: 'ev2',
-                        name: 'Startup Pitch Day',
-                        date: '2024-04-22T00:00:00Z',
-                        budget: 35000,
-                        revenue: 42000,
-                        description: 'Entrepreneurial event where students pitch their startup ideas to industry experts.',
-                        status: 'completed',
-                        expected_attendees: 800
-                    },
-                    {
-                        id: 'ev3',
-                        name: 'Cultural Mela',
-                        date: '2024-05-10T00:00:00Z',
-                        budget: 80000,
-                        revenue: 95000,
-                        description: 'Annual cultural festival celebrating diversity with music, dance, and art performances.',
-                        status: 'completed',
-                        expected_attendees: 5000
-                    },
-                    {
-                        id: 'ev4',
-                        name: 'AI & Machine Learning Summit',
-                        date: '2024-06-18T00:00:00Z',
-                        budget: 65000,
-                        revenue: 88000,
-                        description: 'Technical summit focused on latest advancements in AI and ML technologies.',
-                        status: 'completed',
-                        expected_attendees: 1200
-                    },
-                    {
-                        id: 'ev5',
-                        name: 'Sports Championship 2024',
-                        date: '2024-07-25T00:00:00Z',
-                        budget: 45000,
-                        revenue: 52000,
-                        description: 'Inter-college sports competition with multiple athletic events.',
-                        status: 'completed',
-                        expected_attendees: 3000
-                    },
-                    {
-                        id: 'ev6',
-                        name: 'Hackathon Weekend',
-                        date: '2024-08-12T00:00:00Z',
-                        budget: 30000,
-                        revenue: 38000,
-                        description: '48-hour coding marathon where developers create innovative solutions.',
-                        status: 'completed',
-                        expected_attendees: 600
-                    },
-                    {
-                        id: 'ev7',
-                        name: 'Career Fair 2024',
-                        date: '2024-09-08T00:00:00Z',
-                        budget: 40000,
-                        revenue: 55000,
-                        description: 'Networking event connecting students with potential employers from various industries.',
-                        status: 'completed',
-                        expected_attendees: 2000
-                    },
-                    {
-                        id: 'ev8',
-                        name: 'Research Symposium',
-                        date: '2024-10-20T00:00:00Z',
-                        budget: 25000,
-                        revenue: 28000,
-                        description: 'Academic conference showcasing student research papers and projects.',
-                        status: 'completed',
-                        expected_attendees: 500
-                    },
-                    {
-                        id: 'ev9',
-                        name: 'Gaming Tournament',
-                        date: '2024-11-15T00:00:00Z',
-                        budget: 20000,
-                        revenue: 25000,
-                        description: 'eSports competition with popular multiplayer games.',
-                        status: 'completed',
-                        expected_attendees: 800
-                    },
-                    {
-                        id: 'ev10',
-                        name: 'Alumni Meet 2024',
-                        date: '2024-12-05T00:00:00Z',
-                        budget: 60000,
-                        revenue: 72000,
-                        description: 'Annual alumni gathering with networking sessions and cultural events.',
-                        status: 'completed',
-                        expected_attendees: 1500
-                    },
-                    {
-                        id: 'ev11',
-                        name: 'Innovation Expo 2025',
-                        date: '2025-01-18T00:00:00Z',
-                        budget: 70000,
-                        revenue: 85000,
-                        description: 'Exhibition of cutting-edge student innovations and prototypes.',
-                        status: 'upcoming',
-                        expected_attendees: 1800
-                    },
-                    {
-                        id: 'ev12',
-                        name: 'Music Festival',
-                        date: '2025-02-14T00:00:00Z',
-                        budget: 55000,
-                        revenue: 68000,
-                        description: 'Live music performances featuring student bands and guest artists.',
-                        status: 'upcoming',
-                        expected_attendees: 2500
-                    }
-                ];
-            }
+    <script>
+        // ===== EVENTS DATA =====
+        const EVENTS = [
+            {
+                id: 1, name: 'TechFest 2024', category: 'Technology', date: 'Mar 2024',
+                attendees: 2500, status: 'completed', tag: 'Flagship',
+                img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
+                quote: null, type: 'image', span: 'tall'
+            },
+            {
+                id: 'q1', type: 'quote',
+                quote: '"18,000+ students attended our events in 2024."',
+                sub: 'Our biggest year yet.', color: 'wood', span: 'short'
+            },
+            {
+                id: 2, name: 'Cultural Mela', category: 'Cultural', date: 'May 2024',
+                attendees: 5000, status: 'completed', tag: 'Flagship',
+                img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+            {
+                id: 3, name: 'Startup Pitch Day', category: 'Business', date: 'Apr 2024',
+                attendees: 800, status: 'completed', tag: 'Business',
+                img: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+            {
+                id: 'q2', type: 'quote',
+                quote: '"40+ brands chose to sponsor campus events."',
+                sub: 'Because campus reach is unmatched.', color: 'linen', span: 'short'
+            },
+            {
+                id: 4, name: 'AI & ML Summit', category: 'Technology', date: 'Jun 2024',
+                attendees: 1200, status: 'completed', tag: 'Tech',
+                img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80',
+                type: 'image', span: 'tall'
+            },
+            {
+                id: 5, name: 'Sports Championship', category: 'Sports', date: 'Jul 2024',
+                attendees: 3000, status: 'completed', tag: 'Sports',
+                img: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+            {
+                id: 6, name: 'Hackathon Weekend', category: 'Technology', date: 'Aug 2024',
+                attendees: 600, status: 'completed', tag: '48 Hours',
+                img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+            {
+                id: 'q3', type: 'detail',
+                name: 'Upcoming: Innovation Expo 2025',
+                date: 'Jan 2025', attendees: 1800,
+                desc: 'Exhibition of student-built prototypes. Sponsor spots available.',
+                color: 'espresso', span: 'short'
+            },
+            {
+                id: 7, name: 'Career Fair 2024', category: 'Business', date: 'Sep 2024',
+                attendees: 2000, status: 'completed', tag: 'Recruitment',
+                img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80',
+                type: 'image', span: 'tall'
+            },
+            {
+                id: 8, name: 'Alumni Meet 2024', category: 'Business', date: 'Dec 2024',
+                attendees: 1500, status: 'completed', tag: 'Networking',
+                img: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+            {
+                id: 'q4', type: 'quote',
+                quote: '"₹68 Lakhs+ raised through brand partnerships."',
+                sub: 'Delivered every year, on time.', color: 'wood', span: 'short'
+            },
+            {
+                id: 9, name: 'Music Festival', category: 'Cultural', date: 'Feb 2025',
+                attendees: 2500, status: 'upcoming', tag: 'Upcoming',
+                img: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80',
+                type: 'image', span: 'medium'
+            },
+        ];
 
-            setupEventListeners() {
-                try {
-                    // Search functionality
-                    const searchInput = document.getElementById('search-events');
-                    if (searchInput) {
-                        searchInput.addEventListener('input', 
-                            apiUtils.debounce(this.handleSearch.bind(this), 300)
-                        );
-                    }
+        const CATEGORY_IMGS = {
+            Technology: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
+            Cultural: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80',
+            Business: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80',
+            Sports: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
+        };
 
-                    // Add event button
-                    const addBtn = document.getElementById('add-event-btn');
-                    if (addBtn) {
-                        addBtn.addEventListener('click', this.handleAddEvent.bind(this));
-                    }
-
-                    // Refresh button
-                    const refreshBtn = document.getElementById('refresh-events-btn');
-                    if (refreshBtn) {
-                        refreshBtn.addEventListener('click', this.handleRefresh.bind(this));
-                    }
-
-                    // Date filter
-                    const dateFilter = document.getElementById('date-filter');
-                    if (dateFilter) {
-                        dateFilter.addEventListener('change', this.handleFilter.bind(this));
-                    }
-
-                    // Event form submission
-                    const eventForm = document.getElementById('eventForm');
-                    if (eventForm) {
-                        eventForm.addEventListener('submit', this.handleSaveEvent.bind(this));
-                    }
-
-                    // Logout button
-                    const logoutBtn = document.getElementById('logoutBtn');
-                    if (logoutBtn) {
-                        logoutBtn.addEventListener('click', this.handleLogout.bind(this));
-                    }
-                } catch (error) {
-                    console.error('Failed to setup event listeners:', error);
-                }
-            }
-
-            renderEvents(eventsToRender = this.events) {
-                try {
-                    const container = document.getElementById('eventList');
-                    if (!container) {
-                        console.warn('Event list container not found');
-                        return;
-                    }
-
-                    if (eventsToRender.length === 0) {
-                        container.innerHTML = `
-                            <div class="no-data">
-                                <p>No events found.</p>
-                                <button class="btn-primary" onclick="window.eventsManager.handleAddEvent()">
-                                    Add First Event
-                                </button>
-                            </div>
-                        `;
-                        return;
-                    }
-
-                    const eventsHTML = eventsToRender.map(event => this.createEventCard(event)).join('');
-                    container.innerHTML = eventsHTML;
-
-                    this.attachEventCardHandlers();
-                } catch (error) {
-                    console.error('Failed to render events:', error);
-                    apiUtils.showError(error, 'render-error');
-                    
-                    const container = document.getElementById('eventList');
-                    if (container) {
-                        container.innerHTML = '<p class="error-message">Failed to load events. Please try again.</p>';
-                    }
-                }
-            }
-
-            createEventCard(event) {
-                const profit = (event.revenue || 0) - (event.budget || 0);
-                const profitClass = profit >= 0 ? 'profit-positive' : 'profit-negative';
-                const profitSymbol = profit >= 0 ? '+' : '';
-
+        function buildCard(ev) {
+            if (ev.type === 'image') {
                 return `
-                    <div class="sponsor-card" data-id="${event.id}">
-                        <div class="sponsor-header">
-                            <h3>${this.escapeHtml(event.name)}</h3>
-                            <span class="industry-badge">${apiUtils.formatDate(event.date)}</span>
-                        </div>
-                        <div class="sponsor-details">
-                            <div class="detail-item">
-                                <span class="label">Budget:</span>
-                                <span class="value">${apiUtils.formatCurrency(event.budget || 0)}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Revenue:</span>
-                                <span class="value">${apiUtils.formatCurrency(event.revenue || 0)}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Footfall:</span>
-                                <span class="value">${event.footfall || 0} attendees</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Profit/Loss:</span>
-                                <span class="value ${profitClass}">${profitSymbol}${apiUtils.formatCurrency(profit)}</span>
-                            </div>
-                        </div>
-                        <div class="sponsor-actions">
-                            <button class="btn-secondary edit-event" data-id="${event.id}">
-                                Edit
-                            </button>
-                            <button class="btn-danger delete-event" data-id="${event.id}">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                `;
+        <div class="board-card board-img ${ev.span}" data-cat="${ev.category || ''}">
+            <img src="${ev.img}" alt="${ev.name}" loading="lazy" class="board-card-img">
+            <div class="board-card-overlay">
+                <div class="board-card-tag">${ev.tag}</div>
+                <h3 class="board-card-title">${ev.name}</h3>
+                <div class="board-card-meta">
+                    <span>${ev.date}</span>
+                    <span>${ev.attendees.toLocaleString('en-IN')}+ attendees</span>
+                </div>
+                ${ev.status === 'upcoming' ? `<a href="packages.html#contact" class="board-sponsor-btn">Sponsor This Event →</a>` : ''}
+            </div>
+        </div>`;
             }
-
-            attachEventCardHandlers() {
-                try {
-                    // Edit buttons
-                    document.querySelectorAll('.edit-event').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            const eventId = parseInt(e.target.dataset.id);
-                            this.handleEditEvent(eventId);
-                        });
-                    });
-
-                    // Delete buttons
-                    document.querySelectorAll('.delete-event').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            const eventId = parseInt(e.target.dataset.id);
-                            this.handleDeleteEvent(eventId);
-                        });
-                    });
-                } catch (error) {
-                    console.error('Failed to attach event card handlers:', error);
-                }
+            if (ev.type === 'quote') {
+                return `
+        <div class="board-card board-quote ${ev.color} ${ev.span}" data-cat="all">
+            <blockquote class="board-quote-text">${ev.quote}</blockquote>
+            <p class="board-quote-sub">${ev.sub}</p>
+        </div>`;
             }
-
-            handleSearch(event) {
-                try {
-                    const searchTerm = event.target.value.toLowerCase().trim();
-                    
-                    if (searchTerm === '') {
-                        this.renderEvents();
-                        return;
-                    }
-
-                    const filteredEvents = this.events.filter(event => 
-                        event.name.toLowerCase().includes(searchTerm) ||
-                        (event.date && event.date.includes(searchTerm))
-                    );
-
-                    this.renderEvents(filteredEvents);
-                } catch (error) {
-                    console.error('Search failed:', error);
-                    apiUtils.showError(error, 'search-error');
-                }
+            if (ev.type === 'detail') {
+                return `
+        <div class="board-card board-detail ${ev.color} ${ev.span}" data-cat="all">
+            <p class="board-detail-tag">${ev.date}</p>
+            <h3 class="board-detail-title">${ev.name}</h3>
+            <p class="board-detail-desc">${ev.desc}</p>
+            <a href="packages.html#contact" class="board-detail-link">Sponsor This →</a>
+        </div>`;
             }
-
-            handleFilter(event) {
-                try {
-                    const filterType = event.target.value;
-                    
-                    if (filterType === '') {
-                        this.renderEvents();
-                        return;
-                    }
-
-                    const now = new Date();
-                    const filteredEvents = this.events.filter(event => {
-                        const eventDate = new Date(event.date);
-                        
-                        switch (filterType) {
-                            case 'upcoming':
-                                return eventDate >= now;
-                            case 'past':
-                                return eventDate < now;
-                            case 'last30':
-                                const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
-                                return eventDate >= thirtyDaysAgo && eventDate < now;
-                            case 'next30':
-                                const thirtyDaysLater = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000));
-                                return eventDate >= now && eventDate <= thirtyDaysLater;
-                            default:
-                                return true;
-                        }
-                    });
-
-                    this.renderEvents(filteredEvents);
-                } catch (error) {
-                    console.error('Filter failed:', error);
-                    apiUtils.showError(error, 'filter-error');
-                }
-            }
-
-            handleAddEvent() {
-                this.currentEventId = null;
-                this.openModal('Add Event');
-            }
-
-            handleEditEvent(eventId) {
-                try {
-                    const event = this.events.find(e => e.id === eventId);
-                    if (!event) {
-                        throw new Error('Event not found');
-                    }
-
-                    this.currentEventId = eventId;
-                    this.populateEventForm(event);
-                    this.openModal('Edit Event');
-                } catch (error) {
-                    console.error('Failed to edit event:', error);
-                    apiUtils.showError(error, 'edit-event-error');
-                }
-            }
-
-            populateEventForm(event) {
-                document.getElementById('eventName').value = event.name || '';
-                document.getElementById('eventDate').value = event.date || '';
-                document.getElementById('eventBudget').value = event.budget || '';
-                document.getElementById('eventFootfall').value = event.footfall || '';
-                document.getElementById('eventRevenue').value = event.revenue || '';
-            }
-
-            async handleSaveEvent(event) {
-                event.preventDefault();
-
-                try {
-                    const eventData = {
-                        name: document.getElementById('eventName').value.trim(),
-                        date: document.getElementById('eventDate').value,
-                        budget: parseFloat(document.getElementById('eventBudget').value) || 0,
-                        footfall: parseInt(document.getElementById('eventFootfall').value) || 0,
-                        revenue: parseFloat(document.getElementById('eventRevenue').value) || 0
-                    };
-
-                    // Validation
-                    if (!eventData.name) {
-                        throw new Error('Event name is required');
-                    }
-                    if (!eventData.date) {
-                        throw new Error('Event date is required');
-                    }
-                    if (eventData.budget < 0) {
-                        throw new Error('Budget cannot be negative');
-                    }
-                    if (eventData.footfall < 0) {
-                        throw new Error('Footfall cannot be negative');
-                    }
-                    if (eventData.revenue < 0) {
-                        throw new Error('Revenue cannot be negative');
-                    }
-
-                    this.setLoading(true);
-
-                    let result;
-                    if (this.currentEventId) {
-                        result = await apiMethods.events.update(this.currentEventId, eventData);
-                    } else {
-                        result = await apiMethods.events.create(eventData);
-                    }
-
-                    // Refresh events list
-                    await this.loadEvents();
-                    this.renderEvents();
-                    
-                    this.closeModal();
-                    apiUtils.showSuccess(`Event ${this.currentEventId ? 'updated' : 'created'} successfully!`);
-                } catch (error) {
-                    console.error('Failed to save event:', error);
-                    apiUtils.showError(error, 'modal-error-container');
-                } finally {
-                    this.setLoading(false);
-                }
-            }
-
-            async handleDeleteEvent(eventId) {
-                try {
-                    const event = this.events.find(e => e.id === eventId);
-                    if (!event) {
-                        throw new Error('Event not found');
-                    }
-
-                    const confirmed = confirm(`Are you sure you want to delete "${event.name}"?`);
-                    if (!confirmed) return;
-
-                    this.setLoading(true);
-                    await apiMethods.events.delete(eventId);
-                    
-                    // Remove from local array
-                    this.events = this.events.filter(e => e.id !== eventId);
-                    this.renderEvents();
-                    
-                    apiUtils.showSuccess('Event deleted successfully!');
-                } catch (error) {
-                    console.error('Failed to delete event:', error);
-                    apiUtils.showError(error, 'delete-event-error');
-                } finally {
-                    this.setLoading(false);
-                }
-            }
-
-            async handleRefresh() {
-                if (this.isLoading) return;
-
-                try {
-                    this.isLoading = true;
-                    this.setLoading(true);
-                    
-                    await this.loadEvents();
-                    this.renderEvents();
-                    
-                    apiUtils.showSuccess('Events refreshed successfully!');
-                } catch (error) {
-                    console.error('Failed to refresh events:', error);
-                    apiUtils.showError(error, 'refresh-error');
-                } finally {
-                    this.isLoading = false;
-                    this.setLoading(false);
-                }
-            }
-
-            async handleLogout() {
-                try {
-                    await apiMethods.auth.logout();
-                    window.location.href = 'login.html';
-                } catch (error) {
-                    console.error('Logout failed:', error);
-                    window.location.href = 'login.html';
-                }
-            }
-
-            openModal(title) {
-                document.getElementById('modalTitle').textContent = title;
-                const modal = document.getElementById('eventModal');
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-
-            closeModal() {
-                const modal = document.getElementById('eventModal');
-                modal.classList.remove('show');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 300);
-                document.body.style.overflow = 'auto';
-                document.getElementById('eventForm').reset();
-                
-                // Clear messages
-                document.getElementById('modal-error-container').style.display = 'none';
-                document.getElementById('modal-success-container').style.display = 'none';
-                
-                this.currentEventId = null;
-            }
-
-            setLoading(loading) {
-                const overlay = document.getElementById('loading-overlay');
-                if (overlay) {
-                    overlay.style.display = loading ? 'flex' : 'none';
-                }
-            }
-
-            escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
+            return '';
         }
 
-        // Initialize events page when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                window.eventsManager = new EventsManager();
-                
-                // Global error handlers
-                window.addEventListener('error', (event) => {
-                    console.error('Global error caught:', event.error);
-                    apiUtils.showError(
-                        { message: 'An unexpected error occurred. Please refresh the page.' },
-                        'global-error'
-                    );
-                });
+        function renderBoard(filter = 'all') {
+            const board = document.getElementById('eventsBoard');
+            const items = filter === 'all'
+                ? EVENTS
+                : EVENTS.filter(ev => ev.category === filter || ev.type !== 'image');
+            board.innerHTML = items.map(buildCard).join('');
+        }
 
-                window.addEventListener('unhandledrejection', (event) => {
-                    console.error('Unhandled promise rejection:', event.reason);
-                    apiUtils.showError(
-                        { message: 'A network error occurred. Please check your connection.' },
-                        'promise-error'
-                    );
-                    event.preventDefault();
-                });
-
-                // Close modal when clicking outside
-                window.addEventListener('click', (event) => {
-                    const modal = document.getElementById('eventModal');
-                    if (event.target === modal) {
-                        window.eventsManager.closeModal();
-                    }
-                });
-            } catch (error) {
-                console.error('Failed to initialize events page:', error);
-                apiUtils.showError(
-                    { message: 'Events page initialization failed. Please refresh the page.' },
-                    'init-error'
-                );
-            }
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                renderBoard(chip.dataset.filter);
+            });
         });
+
+        // Scroll reveal
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); revealObs.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal-up, .reveal-right').forEach(el => revealObs.observe(el));
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // Hamburger
+        document.getElementById('navHamburger').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        });
+
+        // Magnetic buttons
+        function initMagButtons() {
+            document.querySelectorAll('.mag-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.18;
+                    const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.18;
+                    btn.style.transform = `translate(${dx}px, ${dy}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+                    btn.style.transform = 'translate(0,0)';
+                    setTimeout(() => btn.style.transition = '', 500);
+                });
+            });
+        }
+
+        renderBoard();
+        initMagButtons();
     </script>
-    
-    <!-- Page Transitions -->
+
+    <script src="js/fluid-bg.js"></script>
     <script type="module" src="js/transitions.js"></script>
-    
-    <!-- Demo Showcase -->
-    <script type="module" src="js/demo-showcase.js"></script>
 </body>
+
 </html>
