@@ -1,168 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Finance Committee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Committee — Partner With Us | College Sponsorship Platform</title>
+    <meta name="description"
+        content="Join brands that reach 50,000+ passionate students. Partner with the Finance Committee for unparalleled campus exposure, event branding, and Gen-Z engagement.">
+    <meta property="og:title" content="Finance Committee — Campus Sponsorship Platform">
+    <meta property="og:description" content="Amplify your brand on campus. Partner with us to reach 50,000+ students.">
+    <meta property="og:type" content="website">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- Demo Mode Banner -->
-<div class="demo-mode-banner">
-    🎯 PRESENTATION MODE - Demo Data Loaded
-</div>
-
-<!-- Enhanced Interactive Particles Background -->
-<div class="particles-bg" id="particlesContainer"></div>
-
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="logo">
-        <img src="assets/logo.svg" alt="Finance Committee Logo">
-        <span>Finance Committee</span>
+    <!-- Ambient Background Layers -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
     </div>
-<div class="nav-links">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="sponsors.html" class="nav-link">Sponsors</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="admin.html" class="nav-link">Admin</a>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="mainNav">
+        <div class="logo">
+            <div class="logo-icon">FC</div>
+            <span>Finance Committee</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="events.html" class="nav-link">Events</a>
+            <a href="packages.html" class="nav-link">Packages</a>
+            <a href="login.html" class="nav-link nav-login">Committee Login</a>
+            <a href="packages.html#contact" class="nav-cta">Partner With Us</a>
+        </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="packages.html">Packages</a>
+        <a href="login.html">Committee Login</a>
+        <a href="packages.html#contact" class="mobile-cta">Partner With Us</a>
     </div>
-</nav>
 
-<!-- Hero Section -->
-<section class="hero page-enter">
-    <div class="hero-3d-coin">₹</div>
-    <h1>Powering the Financial Engine of Our Campus</h1>
-    <p>
-        We manage sponsors, optimize budgets, and deliver measurable ROI
-        through data-driven event finance.
-    </p>
-    <button class="btn-primary btn-icon btn-add" onclick="window.location.href='dashboard.html'">View Impact</button>
-</section>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-tag reveal-up">Campus Sponsorship Platform · Est. 2018</div>
+            <h1 class="hero-title reveal-up">
+                Amplify Your Brand<br>
+                <span class="gradient-text">on Campus.</span>
+            </h1>
+            <p class="hero-sub reveal-up">
+                Put your brand in front of <strong>50,000+ passionate students</strong> at premier college events.
+                We deliver measurable reach, genuine engagement, and lasting brand recall.
+            </p>
+            <div class="hero-actions reveal-up">
+                <a href="packages.html" class="btn-primary">View Sponsorship Packages</a>
+                <a href="events.html" class="btn-ghost">
+                    <span class="btn-ghost-icon">▶</span> See Our Events
+                </a>
+            </div>
+        </div>
 
-<!-- Stats Section -->
-<section class="stats page-enter">
-    <div class="stat-card">
-        <h2 id="total-sponsorships">₹ 0</h2>
-        <p>Total Sponsorships</p>
-    </div>
-    <div class="stat-card">
-        <h2 id="events-funded">0</h2>
-        <p>Events Funded</p>
-    </div>
-    <div class="stat-card">
-        <h2 id="students-reached">0</h2>
-        <p>Students Reached</p>
-    </div>
-</section>
+        <!-- 3D Floating Visual -->
+        <div class="hero-visual">
+            <div class="hero-float-card card-1 reveal-right">
+                <div class="float-card-label">Total Reach</div>
+                <div class="float-card-value" id="heroReach">50K+</div>
+                <div class="float-card-sub">Students per year</div>
+            </div>
+            <div class="hero-float-card card-2 reveal-right">
+                <div class="float-card-label">Avg. ROI</div>
+                <div class="float-card-value">4.2x</div>
+                <div class="float-card-sub">Return on sponsorship</div>
+            </div>
+            <div class="hero-float-card card-3 reveal-right">
+                <div class="float-card-label">Events / Year</div>
+                <div class="float-card-value" id="heroEvents">12+</div>
+                <div class="float-card-sub">Across all categories</div>
+            </div>
+            <div class="hero-img-wrapper">
+                <img src="assets/event_crowd_hero.png" alt="College event crowd" class="hero-img" loading="lazy">
+                <div class="hero-img-overlay"></div>
+            </div>
+        </div>
+    </section>
 
-<!-- About -->
-<section class="about page-enter">
-    <h2>Why Finance Committee?</h2>
-    <p>
-        We are not just fund raisers. We are financial strategists.
-        Our job is to ensure every rupee invested into our campus
-        creates measurable brand impact, student engagement,
-        and sponsor growth.
-    </p>
-</section>
+    <!-- Sponsor Logo Marquee -->
+    <section class="marquee-section">
+        <p class="marquee-label">Brands that have partnered with us</p>
+        <div class="marquee-track">
+            <div class="marquee-inner" id="marqueeInner">
+                <span class="marquee-logo">TechCorp</span>
+                <span class="marquee-logo">InnovateCo</span>
+                <span class="marquee-logo">Fintech Hub</span>
+                <span class="marquee-logo">StartupX</span>
+                <span class="marquee-logo">BrandMax</span>
+                <span class="marquee-logo">EdVentures</span>
+                <span class="marquee-logo">MediaHouse</span>
+                <span class="marquee-logo">NovaCorp</span>
+                <!-- Duplicated for infinite scroll -->
+                <span class="marquee-logo">TechCorp</span>
+                <span class="marquee-logo">InnovateCo</span>
+                <span class="marquee-logo">Fintech Hub</span>
+                <span class="marquee-logo">StartupX</span>
+                <span class="marquee-logo">BrandMax</span>
+                <span class="marquee-logo">EdVentures</span>
+                <span class="marquee-logo">MediaHouse</span>
+                <span class="marquee-logo">NovaCorp</span>
+            </div>
+        </div>
+    </section>
 
-<script type="module">
-    import { apiMethods, apiUtils } from './js/api.js';
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="section-inner">
+            <div class="stat-card reveal-up" style="--delay:0.1s">
+                <div class="stat-icon">🎓</div>
+                <h2 class="stat-num" id="stat-students">0</h2>
+                <p class="stat-label">Students Reached</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-card reveal-up" style="--delay:0.2s">
+                <div class="stat-icon">🎪</div>
+                <h2 class="stat-num" id="stat-events">0</h2>
+                <p class="stat-label">Events Hosted</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-card reveal-up" style="--delay:0.3s">
+                <div class="stat-icon">🤝</div>
+                <h2 class="stat-num" id="stat-sponsors">0</h2>
+                <p class="stat-label">Brand Partners</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-card reveal-up" style="--delay:0.4s">
+                <div class="stat-icon">📈</div>
+                <h2 class="stat-num">₹68L+</h2>
+                <p class="stat-label">Total Sponsorships</p>
+            </div>
+        </div>
+    </section>
 
-    // Function to format number with + sign for large numbers
-    function formatLargeNumber(num, isCurrency = false) {
-        if (num >= 100000) {
-            return isCurrency ? `₹ ${(num / 100000).toFixed(1)}L+` : `${Math.floor(num / 1000)}K+`;
+    <!-- Why Sponsor Section -->
+    <section class="why-section" id="why">
+        <div class="section-container">
+            <div class="section-badge reveal-up">Why Partner With Us</div>
+            <h2 class="section-title reveal-up">One investment.<br>Unlimited campus impact.</h2>
+            <p class="section-sub reveal-up">We give your brand a presence that no billboard can replicate — inside the
+                hearts, phones, and conversations of India's next generation.</p>
+
+            <div class="why-grid">
+                <div class="why-card reveal-up" style="--delay:0.1s">
+                    <div class="why-icon">👥</div>
+                    <h3>Gen-Z Access</h3>
+                    <p>Direct, authentic engagement with India's most-studied demographic. They trust campus brands more
+                        than digital ads.</p>
+                </div>
+                <div class="why-card reveal-up" style="--delay:0.2s">
+                    <div class="why-icon">📊</div>
+                    <h3>Measurable ROI</h3>
+                    <p>Every sponsorship package comes with post-event analytics: reach, impressions, booth traffic, and
+                        social media engagement data.</p>
+                </div>
+                <div class="why-card reveal-up" style="--delay:0.3s">
+                    <div class="why-icon">🎙️</div>
+                    <h3>Stage & Brand Presence</h3>
+                    <p>From banner placements to on-stage mentions and dedicated booths — your brand is seen, heard, and
+                        remembered.</p>
+                </div>
+                <div class="why-card reveal-up" style="--delay:0.4s">
+                    <div class="why-icon">💼</div>
+                    <h3>Recruitment Pipeline</h3>
+                    <p>Connect with the top talent on campus. Our events attract students from engineering, business,
+                        design, and more.</p>
+                </div>
+                <div class="why-card reveal-up" style="--delay:0.5s">
+                    <div class="why-icon">📱</div>
+                    <h3>Social Amplification</h3>
+                    <p>Every event is covered across Instagram, LinkedIn, and YouTube — giving your brand organic,
+                        student-driven social reach.</p>
+                </div>
+                <div class="why-card reveal-up" style="--delay:0.6s">
+                    <div class="why-icon">🏆</div>
+                    <h3>Trusted Management</h3>
+                    <p>A dedicated Finance Committee team with 7+ years of experience delivering on every sponsorship
+                        commitment, on time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner Section -->
+    <section class="cta-banner reveal-up">
+        <div class="cta-content">
+            <h2>Ready to reach <span class="gradient-text">50,000+ students?</span></h2>
+            <p>View our sponsorship tiers or reach out directly. Our team responds within 24 hours.</p>
+            <div class="cta-actions">
+                <a href="packages.html" class="btn-primary">See Packages & Pricing</a>
+                <a href="packages.html#contact" class="btn-outline">Talk to the Team →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon">FC</div>
+                    <span>Finance Committee</span>
+                </div>
+                <p>Connecting ambitious brands with the next generation of leaders.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="index.html">Home</a>
+                    <a href="events.html">Events</a>
+                    <a href="packages.html">Sponsorship Packages</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Committee</h4>
+                    <a href="login.html">Member Login</a>
+                    <a href="packages.html#contact">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Finance Committee. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { apiMethods } from './js/api.js';
+
+        function animateCount(el, target, isFloat = false, prefix = '', suffix = '', duration = 2000) {
+            let start = 0;
+            const step = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) { start = target; clearInterval(timer); }
+                const val = isFloat ? start.toFixed(1) : Math.floor(start);
+                el.textContent = prefix + val.toLocaleString() + suffix;
+            }, 16);
         }
-        if (num >= 1000) {
-            return isCurrency ? `₹ ${(num / 1000).toFixed(1)}K` : `${Math.floor(num / 1000)}K`;
-        }
-        return isCurrency ? `₹ ${num.toLocaleString()}` : num.toLocaleString();
-    }
 
-    // Function to animate number counting
-    function animateNumber(element, target, isCurrency = false, duration = 2000) {
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
+        async function loadStats() {
+            try {
+                const data = await apiMethods.analytics.getDashboard();
+                const events = data?.events?.total_events || 12;
+                const students = (events * 1500) || 18000;
+                const sponsors = data?.sponsors?.total_sponsors || 12;
 
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
+                animateCount(document.getElementById('stat-students'), students, false, '', '+');
+                animateCount(document.getElementById('stat-events'), events, false, '', '+');
+                animateCount(document.getElementById('stat-sponsors'), sponsors, false, '', '+');
+            } catch {
+                animateCount(document.getElementById('stat-students'), 18000, false, '', '+');
+                animateCount(document.getElementById('stat-events'), 12, false, '', '+');
+                animateCount(document.getElementById('stat-sponsors'), 20, false, '', '+');
             }
-            element.textContent = formatLargeNumber(Math.floor(current), isCurrency);
-        }, 16);
-    }
-
-    // Load dashboard stats with demo data for presentation
-    async function loadDashboardStats() {
-        try {
-            const analyticsData = await apiMethods.analytics.getDashboard();
-            
-            // Use comprehensive demo data if API fails
-            const demoData = {
-                financial: {
-                    total_sponsor_investment: 6800000,
-                    total_revenue: 1850000
-                },
-                events: {
-                    total_events: 12
-                }
-            };
-            
-            const data = analyticsData || demoData;
-            
-            if (data && data.financial) {
-                // Animate total sponsorships with demo data
-                const totalSponsorshipsElement = document.getElementById('total-sponsorships');
-                if (totalSponsorshipsElement && data.financial.total_sponsor_investment) {
-                    animateNumber(totalSponsorshipsElement, data.financial.total_sponsor_investment, true);
-                }
-
-                // Animate events funded with demo data
-                const eventsFundedElement = document.getElementById('events-funded');
-                if (eventsFundedElement && data.events?.total_events) {
-                    animateNumber(eventsFundedElement, data.events.total_events);
-                }
-
-                // Animate students reached with demo data
-                const studentsReachedElement = document.getElementById('students-reached');
-                if (studentsReachedElement) {
-                    // Demo: each event reaches ~1500 students on average
-                    const estimatedReach = (data.events?.total_events || 12) * 1500;
-                    animateNumber(studentsReachedElement, estimatedReach);
-                }
-            }
-        } catch (error) {
-            console.error('Failed to load dashboard stats:', error);
-            // Fallback to default values with animation
-            animateNumber(document.getElementById('total-sponsorships'), 1200000, true); // 12L
-            animateNumber(document.getElementById('events-funded'), 40);
-            animateNumber(document.getElementById('students-reached'), 50000);
         }
-    }
 
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-        // Small delay for visual effect
-        setTimeout(loadDashboardStats, 500);
-    });
+        // Scroll reveal observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('revealed');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal-up, .reveal-right').forEach(el => observer.observe(el));
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // Mobile hamburger
+        document.getElementById('navHamburger').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        });
+
+        // 3D tilt effect on float cards
+        document.querySelectorAll('.hero-float-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+                const y = ((e.clientY - rect.top) / rect.height - 0.5) * -18;
+                card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) translateY(-6px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(loadStats, 600);
+        });
     </script>
-    
-    <!-- Enhanced Particle System -->
-    <script type="module" src="js/particles.js"></script>
-    
-    <!-- Page Transitions -->
+
     <script type="module" src="js/transitions.js"></script>
-    
-    <!-- Demo Showcase -->
-    <script type="module" src="js/demo-showcase.js"></script>
 </body>
+
 </html>
